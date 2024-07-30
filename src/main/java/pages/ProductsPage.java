@@ -1,0 +1,121 @@
+package pages;
+
+import constants.IConstants;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class ProductsPage extends HeaderPage implements IConstants {
+    public static final By PRODUCTS = By.xpath("//*[@data-test='title']");
+    public static final String PRODUCT_ITEM = "//div[@class='inventory_list']";
+    public static final String ADD_PRODUCT_TO_CART_BUTTON = PRODUCT_ITEM + "//button[contains(text(), 'Add')]";
+    public static final String REMOVE_PRODUCT_FROM_CART_BUTTON = PRODUCT_ITEM + "//button[contains(text(), 'Remove')]";
+    public static final String SORT_BUTTON = "//select[@class='product_sort_container']";
+    public static final String SORT_LIST_Z_A = "Name (Z to A)";
+    public static final String CART_BUTTON = "//a[@class='shopping_cart_link']";
+
+    /**
+     * Instantiates a new Products page.
+     *
+     * @param driver the driver
+     */
+    public ProductsPage(WebDriver driver) {
+        super(driver);
+    }
+
+    /**
+     * Open page products page.
+     *
+     * @return the products page
+     */
+    public ProductsPage openPage(){
+        driver.get(PRODUCTS_PAGE_URL);
+        return this;
+    }
+
+    /**
+     * Get product text string.
+     *
+     * @return the string
+     */
+    public String getProductText(){
+        return driver.findElement(By.xpath(String.valueOf(PRODUCTS))).getText();
+    }
+
+    /**
+     * Add product to cart.
+     *
+     * @param productName the product name
+     */
+    public ProductsPage addProductToCart(String productName){
+        driver.findElement(By.xpath(String.format(ADD_PRODUCT_TO_CART_BUTTON, productName))).click();
+        return this;
+    }
+
+    /**
+     * Is add to cart button displayed boolean.
+     *
+     * @param productName the product name
+     * @return the boolean
+     */
+    public boolean isAddToCartButtonDisplayed(String productName){
+        return driver.findElement(By.xpath(String.format(ADD_PRODUCT_TO_CART_BUTTON, productName))).isDisplayed();
+    }
+
+    /**
+     * Is remove button displayed boolean.
+     *
+     * @param productName the product name
+     * @return the boolean
+     */
+    public boolean isRemoveButtonDisplayed(String productName){
+        return driver.findElement(By.xpath(String.format(REMOVE_PRODUCT_FROM_CART_BUTTON, productName))).isDisplayed();
+    }
+
+    /**
+     * Sort by.
+     *
+     * @param sortValue the sort value
+     */
+    public void sortBy(String sortValue){
+        new Select(driver.findElement(By.xpath(SORT_BUTTON))).selectByVisibleText(sortValue);
+    }
+
+    /**
+     * Get product names list.
+     *
+     * @return the list
+     */
+    public static List<String> getProductNames(){
+        List<String> names = new ArrayList<>();
+        List<WebElement> products = driver.findElements(By.xpath(PRODUCT_ITEM));
+        for (WebElement product : products)
+        {
+            names.add(product.getText());
+        }
+
+        return names;
+    }
+
+    /**
+     * Is list sorted boolean.
+     *
+     * @param list the list
+     * @return the boolean
+     */
+    public boolean isListSorted(List<String> list){
+        String last = list.get(0);
+        for (int i = 1; i < list.size(); i++){
+            String current = list.get(i);
+            if (last.compareToIgnoreCase(current) > 0){
+                return false;
+            }
+            last = current;
+        }
+        return true;
+    }
+}
