@@ -16,7 +16,7 @@ public class ProductPageTests extends BaseTest implements ITestConstants {
         loginPage
                 .openPage()
                 .login(USERNAME, PASSWORD);
-        productsPage.sortBy(SORT_LIST_Z_A);
+        productsPage.sortByValue(SORT_LIST_Z_A);
         Assert.assertTrue(productsPage.isListSorted(getProductNames()));
     }
 }

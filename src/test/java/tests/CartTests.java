@@ -4,8 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import tests.constants.ITestConstants;
 
-import static constants.IConstants.CHECKOUT_PAGE1_URL;
-import static constants.IConstants.CHECKOUT_PAGE2_URL;
+import static constants.IConstants.*;
 
 public class CartTests extends BaseTest implements ITestConstants {
 
@@ -28,7 +27,7 @@ public class CartTests extends BaseTest implements ITestConstants {
      * Successful transition to next order form test.
      */
     @Test
-    public void SuccessfulTransitionToNextOrderFormTest(){
+    public void checkTransitionToOverwiewPageSuccessfullyTest(){
         loginPage
                 .openPage()
                 .login(USERNAME, PASSWORD);
@@ -36,17 +35,16 @@ public class CartTests extends BaseTest implements ITestConstants {
                 .addProductToCart("Sauce Labs Backpack");
         cartPage
                 .openPage()
-                .proceedToCheckout();
-        checkoutPage1
+                .proceedToCheckout()
                 .fillAllFieldsWithCorrectData(FIRST_NAME, LAST_NAME, ZIP_CODE);
-        Assert.assertEquals(CHECKOUT_PAGE2_URL, driver.getCurrentUrl());
+        Assert.assertEquals(CHECKOUT_OVERVIEW_PAGE_URL, driver.getCurrentUrl());
     }
 
     /**
      * Attempt to continue placing an order with blank first name field test.
      */
     @Test
-    public void AttemptToContinuePlacingAnOrderWithBlankFirstNameFieldTest() {
+    public void attemptToContinuePlacingAnOrderWithBlankFirstNameFieldTest() {
         loginPage
                 .openPage()
                 .login(USERNAME, PASSWORD);
@@ -57,7 +55,7 @@ public class CartTests extends BaseTest implements ITestConstants {
                 .proceedToCheckout();
         checkoutPage1
                 .fillFieldsWithoutsFirstName(LAST_NAME, ZIP_CODE);
-        Assert.assertEquals(CHECKOUT_PAGE1_URL, driver.getCurrentUrl());
+        Assert.assertEquals(CHECKOUT_INFO_PAGE_URL, driver.getCurrentUrl());
         Assert.assertEquals(checkoutPage1.getErrorMessageText(), "Error: First Name is required");
     }
 }

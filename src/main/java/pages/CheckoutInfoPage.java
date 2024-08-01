@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class CheckoutPage1 extends BasePage implements IConstants {
+public class CheckoutInfoPage extends BasePage implements IConstants {
     @FindBy(xpath = "//input[@id='first-name']")
     WebElement firstNameInput;
     @FindBy(xpath = "//input[@id='last-name']")
@@ -22,7 +22,7 @@ public class CheckoutPage1 extends BasePage implements IConstants {
      *
      * @param driver the driver
      */
-    public CheckoutPage1(WebDriver driver) {
+    public CheckoutInfoPage(WebDriver driver) {
         super(driver);
     }
 
@@ -31,7 +31,7 @@ public class CheckoutPage1 extends BasePage implements IConstants {
      *
      * @return the checkout page 1
      */
-    public CheckoutPage1 openPage(){
+    public CheckoutInfoPage openPage(){
         driver.get(CART_PAGE_URL);
         return this;
     }
@@ -43,11 +43,12 @@ public class CheckoutPage1 extends BasePage implements IConstants {
      * @param lastname  the lastname
      * @param zipCode   the zip code
      */
-    public void fillAllFieldsWithCorrectData(String firstname, String lastname, String zipCode){
+    public CheckoutOverviewPage fillAllFieldsWithCorrectData(String firstname, String lastname, String zipCode){
         firstNameInput.sendKeys(firstname);
         lastNameInput.sendKeys(lastname);
         zipCodeInput.sendKeys(zipCode);
         continueButton.click();
+        return new CheckoutOverviewPage(driver);
     }
 
     /**
@@ -56,10 +57,11 @@ public class CheckoutPage1 extends BasePage implements IConstants {
      * @param lastname the lastname
      * @param zipCode  the zip code
      */
-    public void fillFieldsWithoutsFirstName(String lastname, String zipCode){
+    public CheckoutInfoPage fillFieldsWithoutsFirstName(String lastname, String zipCode){
         lastNameInput.sendKeys(lastname);
         zipCodeInput.sendKeys(zipCode);
         continueButton.click();
+        return new CheckoutInfoPage(driver);
     }
 
     /**

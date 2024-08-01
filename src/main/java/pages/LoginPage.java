@@ -7,11 +7,11 @@ import org.openqa.selenium.support.FindBy;
 
 public class LoginPage extends BasePage implements IConstants {
 
-    @FindBy(xpath = "/html//input[@id='user-name']")
+    @FindBy(xpath = "//input[@id='user-name']")
     WebElement usernameInput;
-    @FindBy(xpath = "/html//input[@id='password']")
+    @FindBy(xpath = "//input[@id='password']")
     WebElement passwordInput;
-    @FindBy(xpath = "/html//input[@id='login-button']")
+    @FindBy(xpath = "//input[@id='login-button']")
     WebElement loginButton;
     @FindBy(xpath = "//*[@data-test='error']")
     WebElement errorMessage;

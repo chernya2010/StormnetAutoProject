@@ -36,8 +36,9 @@ public class CartPage extends HeaderPage implements IConstants {
      *
      * @param productName the product name
      */
-    public void removeProductFromCart(String productName){
+    public CartPage removeProductFromCart(String productName){
         driver.findElement(By.xpath(String.format(PRODUCT_REMOVE, productName))).click();
+        return this;
     }
 
     /**
@@ -72,7 +73,8 @@ public class CartPage extends HeaderPage implements IConstants {
     /**
      * Proceed to checkout.
      */
-    public void proceedToCheckout(){
+    public CheckoutInfoPage proceedToCheckout(){
         driver.findElement(By.xpath(CHECKOUT_BUTTON)).click();
+        return new CheckoutInfoPage(driver);
     }
 }
