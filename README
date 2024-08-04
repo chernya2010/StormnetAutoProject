@@ -1,0 +1,5 @@
+1. Успешная авторизация пользователя (loginWithCorrectDataTest)
+2. Отсортировать список товаров в обратном алфавитном порядке (sortTheListOfProductsInReverseOrderTest)
+3. Добавить товар в корзину (successfullyAddingProductToCartTest)
+4. Успешный переход к следующей форме оформление заказа (SuccessfulTransitionToNextOrderFormTest)
+5. Попытка продолжить оформление заказа с незаполненным полем "First Name" (AttemptToContinuePlacingAnOrderWithBlankFirstNameFieldTest)
